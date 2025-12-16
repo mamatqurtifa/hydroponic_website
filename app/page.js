@@ -121,6 +121,22 @@ export default function DashboardPage() {
     }
   };
 
+  // Initialize MQTT Handler on mount
+  useEffect(() => {
+    const initMqtt = async () => {
+      try {
+        console.log('🔧 Initializing MQTT Handler...');
+        const response = await fetch('/api/mqtt-init');
+        const result = await response.json();
+        console.log('MQTT Init result:', result);
+      } catch (error) {
+        console.error('Failed to initialize MQTT:', error);
+      }
+    };
+    
+    initMqtt();
+  }, []);
+
   // Initial load
   useEffect(() => {
     fetchSensorData();
