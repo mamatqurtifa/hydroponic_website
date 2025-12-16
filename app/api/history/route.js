@@ -22,7 +22,7 @@ export async function GET(request) {
           water_height,
           water_percentage,
           tank_height,
-          CONVERT_TZ(created_at, '+00:00', '+07:00') as created_at
+          DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') as created_at
          FROM sensor_data 
          WHERE created_at >= DATE_SUB(NOW(), INTERVAL ${hours} HOUR)
          ORDER BY created_at ASC`
@@ -44,7 +44,7 @@ export async function GET(request) {
           water_level,
           threshold,
           reason,
-          created_at
+          DATE_FORMAT(created_at, '%Y-%m-%d %H:%i:%s') as created_at
          FROM pump_history 
          WHERE created_at >= DATE_SUB(NOW(), INTERVAL ${hours} HOUR)
          ORDER BY created_at ASC`
