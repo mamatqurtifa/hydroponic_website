@@ -22,7 +22,7 @@ export async function GET(request) {
           water_height,
           water_percentage,
           tank_height,
-          created_at
+          CONVERT_TZ(created_at, '+00:00', '+07:00') as created_at
          FROM sensor_data 
          WHERE created_at >= DATE_SUB(NOW(), INTERVAL ${hours} HOUR)
          ORDER BY created_at ASC`
