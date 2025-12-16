@@ -2,6 +2,25 @@ import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, Legend, Responsi
 import { TrendingUp } from 'lucide-react';
 
 export default function HistoryChart({ data, dataKey, title, color, unit }) {
+  console.log(`📈 ${title}:`, {
+    dataLength: data?.length || 0,
+    dataKey,
+    sampleData: data?.[0]
+  });
+
+  // Map Tailwind color classes to hex colors
+  const colorMap = {
+    'text-red-500': '#ef4444',
+    'text-blue-500': '#3b82f6',
+    'text-cyan-500': '#06b6d4',
+    'text-green-500': '#22c55e',
+    'text-yellow-500': '#eab308',
+    'text-purple-500': '#a855f7',
+    'text-orange-500': '#f97316'
+  };
+
+  const strokeColor = colorMap[color] || '#3b82f6';
+
   const formatXAxis = (timestamp) => {
     const date = new Date(timestamp);
     return date.toLocaleTimeString('id-ID', { hour: '2-digit', minute: '2-digit' });
@@ -49,7 +68,7 @@ export default function HistoryChart({ data, dataKey, title, color, unit }) {
           <Line 
             type="monotone" 
             dataKey={dataKey} 
-            stroke={color.replace('text-', '#')} 
+            stroke={strokeColor}
             strokeWidth={2}
             dot={false}
             name={title}

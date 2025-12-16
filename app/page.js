@@ -110,6 +110,13 @@ export default function DashboardPage() {
       const response = await fetch('/api/history?hours=24&type=all');
       const result = await response.json();
       
+      console.log('📊 History data received:', {
+        success: result.success,
+        sensorCount: result.data?.sensor?.length || 0,
+        pumpCount: result.data?.pump?.length || 0,
+        sampleData: result.data?.sensor?.[0]
+      });
+      
       if (result.success && result.data) {
         setHistoryData({
           sensor: result.data.sensor || [],
